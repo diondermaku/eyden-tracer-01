@@ -18,6 +18,10 @@ public:
 	virtual ~CPrim(void) = default;
 	const CPrim& operator=(const CPrim&) = delete;
 
+	Vec3f m_color; // additional property to set the colors of the shapes
+	// it is type Vec3f as we need array of 3 floats to store the color
+	CPrim(Vec3f color) : m_color(color){}; // parametric constructor
+
 	/**
 	 * @brief Checks for intersection between ray \b Ray and the primitive
 	 * @details If a valid intersection has been found with the primitive, set Ray::t to the distance to this intersection point (if current t < ray.t)

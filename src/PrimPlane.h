@@ -15,8 +15,8 @@ public:
 	 * @param origin Point on the plane
 	 * @param normal Normal to the plane
 	 */
-	CPrimPlane(Vec3f origin, Vec3f normal)
-		: CPrim()
+	CPrimPlane(Vec3f color, Vec3f origin, Vec3f normal)
+		: CPrim(color)
 		, m_normal(normal)
 		, m_origin(origin)
 	{
@@ -26,11 +26,26 @@ public:
 
 	virtual bool Intersect(Ray& ray) override
 	{
-		// --- PUT YOUR CODE HERE ---
-		return true;
+
+		// use derived formula from previous HW
+		if (ray.dir.dot(m_normal) == 0){ // first check if denominator is 0
+			return false;
+		}
+		else{
+			float t = (m_origin - ray.org).dot(m_normal) / ray.dir.dot(m_normal);
+			if (t < Epsilon || t > ray.t)
+				return false;
+			else{
+				ray.t = t;
+				return true;
+			}
+
+		}
+		
+			
 	}
-	
-	
+
+
 private:
 	Vec3f m_normal;	///< Point on the plane
 	Vec3f m_origin;	///< Normal to the plane
